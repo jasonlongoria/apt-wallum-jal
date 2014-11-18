@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="stylesheets/wallum.css">
+        
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script>
+        $(function() {
+              // set max to length of wall (inches)
+              // set min to 0
+              // set step equal to max (inches)
+        
+             $( "#wall_left" ).slider({ orientation: "vertical" ,
+                                        range: true});
+             $( "#wall_up" ).slider({ orientation: "horizontal" });
+             $( "#wall_right" ).slider({ orientation: "vertical" });
+             $( "#wall_down" ).slider({ orientation: "horizontal" });
+           });
+        </script>
+     
+    </head>
+    <body>
+		<form>
+        	<input type='text' name='location' id='location_input' />
+        	<input type='text' name='length' id='length_input' />
+        	<input type='text' name='width' id='width_input' />
+			<br /><input type='submit' value='search' />
+		</form>
+		
+		<div id="wall_left"></div>
+		<div id="wall_up"></div>
+		<div id="wall_right"></div>
+		<div id="wall_down"></div>
+		
+        <form>
+            <div class="room_left room_bottom"><input type='radio'/></div>
+            <div class="room_hcenter room_top"><input type='radio'/></div>
+            <div class="room_right room_top"><input type='radio'/></div>
+            <div class="room_left room_vcenter"><input type='radio'/></div>
+            <div class="room_right room_vcenter"><input type='radio'/></div>
+            <div class="room_left room_bottom"><input type='radio'/></div>
+            <div class="room_hcenter room_bottom"><input type='radio'/></div>
+            <div class="room_right room_bottom"><input type='radio'/></div>
+        </form>
+	</body>
+</html>
+{% endautoescape %}
