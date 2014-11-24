@@ -37,3 +37,12 @@ body{
   height: 10px;
   background-color: brown;
 }
+
+.ui-rotatable-handle {
+    height: 16px;
+    width: 16px;
+    background-color: red;
+    background-size: 100%;
+    left: 2px;
+    bottom: 2px;
+}
