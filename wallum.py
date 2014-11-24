@@ -27,25 +27,15 @@ class ResultsPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write(self.request.get('lon'))
-        pass
-
 
 class InputPage(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('input.html')
         self.response.write(template.render())
 
-class MainPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/html'
-        self.response.write('Hello, Walls!')
-        template = JINJA_ENVIRONMENT.get_template('input.html')
-        self.response.write(template.render())
-
-
 application = webapp2.WSGIApplication([
     ('/results', ResultsPage),
     ('/calc', ResultsCalc),
     ('/input', InputPage),
-    ('/', MainPage)
+    ('/', InputPage)
 ], debug=True)
