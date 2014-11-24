@@ -1,26 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" type="text/css" href="stylesheets/wallum.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/wallum.css">
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
-	<script src="scripts/jquery.ui.rotatable.js"></script>
+        <script src="scripts/jquery.ui.rotatable.js"></script>
         
-        <script>
-        $(document).ready(function(){
-          $("button").click(function(){
-            $("p").text("hello");
-            $( "#wall_down" ).slider({ orientation: "horizontal" });
-          });
-          $( "#wall_right" ).slider({ orientation: "vertical" });
-          $( "#width_input" ).text("width_input");
-          $( "#door" ).draggable( {axis:"x",
-                                   containment: "parent"} );
-          $( "#north_selector" ).rotatable();
-        });
+        <script>                    
+            $(document).ready(function(){
+                   $( "#wall_left_slider" ).slider({ orientation: "vertical", 
+                                              range: true,
+                                              values: [40,60],
+                                              min: 0,
+                                              max: 100}).hide();
+                                              
+                   $( "#wall_right_slider" ).slider({ orientation: "vertical", 
+                                              range: true,
+                                              values: [40,60],
+                                              min: 0,
+                                              max: 100}).hide();
+                                              
+                   $( "#wall_up_slider" ).slider({ orientation: "horizontal", 
+                                              range: true,
+                                              values: [40,60],
+                                              min: 0,
+                                              max: 100}).hide();
+                                              
+                   $( "#wall_down_slider" ).slider({ orientation: "horizontal", 
+                                              range: true,
+                                              values: [40,60],
+                                              min: 0,
+                                              max: 100}).hide();
+                    
+                    $( "#wall_left" ).click(function () {
+                        $( "#wall_left_slider" ).show();
+                        $( "#wall_right_slider" ).hide();
+                        $( "#wall_up_slider" ).hide();
+                        $( "#wall_down_slider" ).hide();
+                    });
+                    
+                    $( "#wall_right" ).click(function () {
+                        $( "#wall_left_slider" ).hide();
+                        $( "#wall_right_slider" ).show();
+                        $( "#wall_up_slider" ).hide();
+                        $( "#wall_down_slider" ).hide();
+                    });
+                    
+                    $( "#wall_up" ).click(function () {
+                        $( "#wall_left_slider" ).hide();
+                        $( "#wall_right_slider" ).hide();
+                        $( "#wall_up_slider" ).show();
+                        $( "#wall_down_slider" ).hide();
+                    });
+                    
+                    $( "#wall_down" ).click(function () {
+                        $( "#wall_left_slider" ).hide();
+                        $( "#wall_right_slider" ).hide();
+                        $( "#wall_up_slider" ).hide();
+                        $( "#wall_down_slider" ).show();
+                    });
+                                              
+                    $( "#door" ).draggable( {axis:"x",
+                                           containment: "parent"} );
+                                           
+                    $( "#north_selector" ).rotatable();
+                });
         </script>
     </head>
     <body>
@@ -35,33 +82,21 @@
 		<br /><input type='submit' value='calculate' />
 	</form>
 	
-	
-	<div>
-		<img src="http://crazytattoopics.com/wp-content/uploads/2013/11/Compass-Rose-Symbolism.jpg" id="north_selector"/>
+	<div id="north_selector">
 	</div>
-	
-	<div id="wall_left" class="room_left"></div>
-	<div id="wall_up" class="room_top"></div>
-	<div id="wall_right" class="room_right"></div>
-	<div id="wall_down" class="room_bottom">
+
+	<div id="wall_left" class="room_left wall_vertical"></div>
+    <div id="wall_up" class="room_top wall_horizontal"></div>
+	<div id="wall_right" class="room_right wall_vertical"></div>
+	<div id="wall_down" class="room_bottom wall_horizontal">
             <div id="door"></div>
-        </div>
-        
-        
-        <h2>This is a heading</h2>
-        <p>This is a paragraph.</p>
-        <button>Click me</button>
-		
-        <form>
-            <div class="room_left room_bottom"><input type='radio'/></div>
-            <div class="room_hcenter room_top"><input type='radio'/></div>
-            <div class="room_right room_top"><input type='radio'/></div>
-            <div class="room_left room_vcenter"><input type='radio'/></div>
-            <div class="room_right room_vcenter"><input type='radio'/></div>
-            <div class="room_left room_bottom"><input type='radio'/></div>
-            <div class="room_hcenter room_bottom"><input type='radio'/></div>
-            <div class="room_right room_bottom"><input type='radio'/></div>
-        </form>
+    </div>
+    
+    <div id="wall_left_slider" class="room_left wall_vertical"></div>
+	<div id="wall_up_slider" class="room_top wall_horizontal"></div>
+	<div id="wall_right_slider" class="room_right wall_vertical"></div>
+	<div id="wall_down_slider" class="room_bottom wall_horizontal"></div>
+    
 
 	</body>
 </html>

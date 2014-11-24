@@ -5,31 +5,37 @@ body{
 .room_left {
     position: fixed;
 	left: 200px;
-}
-
-.room_hcenter {
-    position: fixed;
-	left: 300px;
+    top: 200px;
 }
 
 .room_right {
     position: fixed;
-	left: 400px;
+	left: 600px;
+    top: 200px;
 }
 
 .room_top {
     position: fixed;
+	left: 200px;
 	top: 200px;
-}
-
-.room_vcenter {
-    position: fixed;
-	top: 300px;
 }
 
 .room_bottom {
     position: fixed;
-	top: 400px;
+	left: 200px;
+	top: 600px;
+}
+
+.wall_horizontal {
+  width: 400px;
+  height: 10px;
+  background-color: green;
+}
+
+.wall_vertical {
+  width: 10px;
+  height: 400px;
+  background-color: blue;
 }
 
 #door {
@@ -39,15 +45,16 @@ body{
 }
 
 .ui-rotatable-handle {
-    height: 16px;
-    width: 16px;
-    background-color: red;
+    height: 400px;
+    width: 400px;
     background-size: 100%;
-    left: 2px;
-    bottom: 2px;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/8/8d/Simple_compass_rose.svg");
 }
 
 #north_selector {
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
+    position: fixed;
+    left: 200px;
+    top: 200px;
 }
