@@ -2,3 +2,4 @@
 **.jar
 **.class
 **/jquery.ui.widget.js
+**/jquery.ui.rotatable.js
