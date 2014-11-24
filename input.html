@@ -19,6 +19,7 @@
           $( "#width_input" ).text("width_input");
           $( "#door" ).draggable( {axis:"x",
                                    containment: "parent"} );
+          $( "#north_selector" ).rotatable();
         });
         </script>
     </head>
@@ -33,6 +34,9 @@
 	<input type='text' name='width' id='width_input' /><br />
 		<br /><input type='submit' value='calculate' />
 	</form>
+	
+	
+	<div id="north_selector">North</div>
 	
 	<div id="wall_left" class="room_left"></div>
 	<div id="wall_up" class="room_top"></div>
