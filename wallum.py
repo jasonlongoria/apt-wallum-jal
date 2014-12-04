@@ -4,10 +4,7 @@ import urllib
 import jinja2
 import webapp2
 
-from math import cos
-from math import sin
-from math import radians
-from math import pi
+from math import *
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -32,27 +29,40 @@ class GenerateResults():
     def results(self, lat):
         # cos(azimuth) = (sin(dec)*cos(lat) - cos(hour)*cos(dec)*sin(lat)) / cos(elevation)
         
+        cos_azimuth = []
+        
         # hour angles from 6AM to 6PM = -90 to +90 degrees = -pi/2 to +pi/2 radians
         # every 2 hours = every 30 degrees
         for hour in [-90, -60, -30, 0, 30, 60, 90]:
-            h_rad = radians(hour)
+            hour_r = radians(hour)
             
-            # TODO: calculate declination based on day of year; d_rad = radians (declination)
+            # TODO: calculate declination based on day of year; dec_r = radians (declination)
             # prototype: declination = 0 degrees
-            d_rad = 0
-            
-            # TODO: get latitude from input
-            # prototype: latitude = 30.27 degrees (Austin)
-            lat = 30.72
-            l_rad = radians(lat)
-            
-            # solar elevation angle
-            sin_elevation = cos(h_rad)*cos(d_rad)*cos(l_rad) + sin(d_rad)*sin(l_rad)
-            e_rad = math.acos(sin_elevation)
-            
-            cos_azimuth = (sin(d_rad)*cos(l_rad) - cos(h_rad)*cos(d_rad)*sin(l_rad)) / cos(e_rad)
-        
-        
+            for day in range(1,366):
+                # declination for each day of the year
+                dec_r = radians(-23.44)*cos(radians(day*360/365))
+                
+                # TODO: get latitude from input
+                # prototype: latitude = 30.27 degrees (Austin)
+                lat = 30.72
+                lat_r = radians(lat)
+                
+                # solar elevation angle
+                sin_elevation = cos(hour_r)*cos(dec_r)*cos(lat_r) + sin(dec_r)*sin(lat_r)
+                ele_r = acos(sin_elevation)
+                
+                cos_azimuth.append((sin(dec_r)*cos(lat_r) - cos(hour_r)*cos(dec_r)*sin(lat_r)) / cos(ele_r))
+                
+        cos_azimuth.sort()
+        mult = len(cos_azimuth)/10
+        # Get the x-positions (cosines) for the divisions in the gradient
+        # Sort the array, and divide it into equal 10ths
+        # The first nine are the divisions for the gradient
+        deciles = []
+        for decile in range(1,mult*9)
+            deciles.append(cos_azimuth[decile])
+                
+                
         
 class ResultsPage(webapp2.RequestHandler):
     def get(self):

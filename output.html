@@ -11,32 +11,37 @@
         <canvas id="eastCanvas" style="border:1px solid #d3d3d3;"></canvas>
         
         <style>
+            body {
+                background-color: #666666;
+            }
+        
             #southCanvas {
                 position: absolute;
                 top: 600px;
-                left: 200px;
+                left: 100px;
             }
             #northCanvas {
                 position: absolute;
-                top: 170px;
-                left: 200px;
+                top: 160px;
+                left: 100px;
             }
             #westCanvas {
                 position: absolute;
                 top: 200px;
-                left: 200px;
+                left: 100px;
             }
             #eastCanvas {
                 position: absolute;
                 top: 200px;
-                left: 570px;
+                left: 860px;
             }
         </style>
         
         
         <script>
-            var wallWidth = 30;
-            var wallLength = 400;
+            var wallWidth = 40;
+            var wallLength = 800;
+            var shortWallLength=400;
             
 
             var southCanvas = document.getElementById("southCanvas");
@@ -44,10 +49,14 @@
             var grd = southGradient.createLinearGradient(0, 0, wallLength, 0);
             southCanvas.width = wallLength;
             southCanvas.height = wallWidth;
-            grd.addColorStop(0.2, "yellow");
+            grd.addColorStop(0.1, "black");
+            grd.addColorStop(0.2, "purple");
+            grd.addColorStop(0.3, "blue");
             grd.addColorStop(0.4, "green");
-            grd.addColorStop(0.6, "blue");
-            grd.addColorStop(.8, "purple");
+            grd.addColorStop(0.6, "yellow");
+            grd.addColorStop(0.7, "green");
+            grd.addColorStop(0.8, "blue");
+            grd.addColorStop(.9, "purple");
             grd.addColorStop(1, "black");
             southGradient.fillStyle = grd;
             southGradient.fillRect(0, 0, wallLength, wallWidth);
@@ -57,40 +66,28 @@
             var grd = northGradient.createLinearGradient(0, 0, wallLength, 0);
             northCanvas.width = wallLength;
             northCanvas.height = wallWidth;
-            grd.addColorStop(0.1, "yellow");
-            grd.addColorStop(0.3, "green");
-            grd.addColorStop(0.4, "blue");
-            grd.addColorStop(1, "purple");
+            grd.addColorStop(1, "black");
             northGradient.fillStyle = grd;
-            northGradient.fillRect(0, 0, wallLength, wallWidth);
+            northGradient.fillRect(0, 0, wallLength/6, wallWidth);
+            northGradient.fillRect(wallLength/3, 0, wallLength, wallWidth);
             
             var eastCanvas = document.getElementById("eastCanvas");
             var eastGradient = document.getElementById("eastCanvas").getContext("2d");
             var grd = eastGradient.createLinearGradient(0, wallWidth, 0, wallLength);
             eastCanvas.width = wallWidth;
-            eastCanvas.height = wallLength;
-            grd.addColorStop(0, "red");
-            grd.addColorStop(0.1, "orange");
-            grd.addColorStop(0.2, "yellow");
-            grd.addColorStop(0.3, "green");
-            grd.addColorStop(0.4, "blue");
-            grd.addColorStop(1, "purple");
+            eastCanvas.height = shortWallLength;
+            grd.addColorStop(1, "black");
             eastGradient.fillStyle = grd;
-            eastGradient.fillRect(0, 0, wallWidth, wallLength);
+            eastGradient.fillRect(0, 0, wallWidth, shortWallLength);
             
             var westCanvas = document.getElementById("westCanvas");
             var westGradient = document.getElementById("westCanvas").getContext("2d");
             var grd = westGradient.createLinearGradient(0, wallWidth, 0, wallLength);
             westCanvas.width = wallWidth;
-            westCanvas.height = wallLength;
-            grd.addColorStop(0, "red");
-            grd.addColorStop(0.1, "orange");
-            grd.addColorStop(0.2, "yellow");
-            grd.addColorStop(0.3, "green");
-            grd.addColorStop(0.4, "blue");
-            grd.addColorStop(1, "purple");
+            westCanvas.height = shortWallLength;
+            grd.addColorStop(1, "black");
             westGradient.fillStyle = grd;
-            westGradient.fillRect(0, 0, wallWidth, wallLength);
+            westGradient.fillRect(0, 0, wallWidth, shortWallLength);
         </script>
     </body>
     
