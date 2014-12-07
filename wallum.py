@@ -20,15 +20,12 @@ class ResultsCalc(webapp2.RequestHandler):
                       'window_end':self.request.get('window_end'),
                       'lat':self.request.get('lat'),
                       'lon':self.request.get('lon')}
-        url = "/results?" + urllib.urlencode(calcinputs)
+        url = "/output?" + urllib.urlencode(calcinputs)
         self.redirect(url)
-        #todo: generate array of results
-        #inputs: north angle, window endpoint 1, window endpoint 2, wall distance from window
-        
-class GenerateResults():
-    def results(self, lat):
+
+class OutputPage(webapp2.RequestHandler):
+    def get(self):
         # cos(azimuth) = (sin(dec)*cos(lat) - cos(hour)*cos(dec)*sin(lat)) / cos(elevation)
-        
         cos_azimuth = []
         
         # hour angles from 6AM to 6PM = -90 to +90 degrees = -pi/2 to +pi/2 radians
@@ -59,15 +56,11 @@ class GenerateResults():
         # Sort the array, and divide it into equal 10ths
         # The first nine are the divisions for the gradient
         deciles = []
-        for decile in range(1,mult*9)
+        for decile in range(1,mult*9):
             deciles.append(cos_azimuth[decile])
-                
-                
         
-class ResultsPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(self.request.get('lon'))
+        template = JINJA_ENVIRONMENT.get_template('output.html')
+        self.response.write(template.render(deciles))
 
 class InputPage(webapp2.RequestHandler):
     def get(self):
@@ -75,8 +68,7 @@ class InputPage(webapp2.RequestHandler):
         self.response.write(template.render())
 
 application = webapp2.WSGIApplication([
-    ('/results', ResultsPage),
+    ('/output', OutputPage),
     ('/calc', ResultsCalc),
-    ('/input', InputPage),
     ('/', InputPage)
 ], debug=True)
