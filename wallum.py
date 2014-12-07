@@ -18,8 +18,7 @@ class ResultsCalc(webapp2.RequestHandler):
     def post(self):
         calcinputs = {'window_start':self.request.get('window_start'),
                       'window_end':self.request.get('window_end'),
-                      'lat':self.request.get('lat'),
-                      'lon':self.request.get('lon')}
+                      'lat':self.request.get('lat')}
         url = "/output?" + urllib.urlencode(calcinputs)
         self.redirect(url)
 
@@ -60,7 +59,7 @@ class OutputPage(webapp2.RequestHandler):
             deciles.append(cos_azimuth[decile])
         
         template = JINJA_ENVIRONMENT.get_template('output.html')
-        self.response.write(template.render(deciles))
+        self.response.write(template.render({deciles}))
 
 class InputPage(webapp2.RequestHandler):
     def get(self):
