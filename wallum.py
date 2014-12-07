@@ -24,16 +24,13 @@ class ResultsCalc(webapp2.RequestHandler):
 
 class OutputPage(webapp2.RequestHandler):
     def get(self):
-        # cos(azimuth) = (sin(dec)*cos(lat) - cos(hour)*cos(dec)*sin(lat)) / cos(elevation)
-        cos_azimuth = []
+        # sin(azimuth) = -sin(hour angle)*cos(declination) / cos(elevation angle)
+        sin_azimuth = []
         
         # hour angles from 6AM to 6PM = -90 to +90 degrees = -pi/2 to +pi/2 radians
         # every 2 hours = every 30 degrees
         for hour in [-90, -60, -30, 0, 30, 60, 90]:
             hour_r = radians(hour)
-            
-            # TODO: calculate declination based on day of year; dec_r = radians (declination)
-            # prototype: declination = 0 degrees
             for day in range(1,366):
                 # declination for each day of the year
                 dec_r = radians(-23.44)*cos(radians(day*360/365))
@@ -47,19 +44,22 @@ class OutputPage(webapp2.RequestHandler):
                 sin_elevation = cos(hour_r)*cos(dec_r)*cos(lat_r) + sin(dec_r)*sin(lat_r)
                 ele_r = acos(sin_elevation)
                 
-                cos_azimuth.append((sin(dec_r)*cos(lat_r) - cos(hour_r)*cos(dec_r)*sin(lat_r)) / cos(ele_r))
+                sin_azimuth_instant = -sin(hour_r) * cos(dec_r) / cos(ele_r)
+                if sin_azimuth_instant <= 1 and sin_azimuth_instant >= -1:
+                    sin_azimuth.append(sin_azimuth_instant)
                 
-        cos_azimuth.sort()
-        mult = len(cos_azimuth)/10
+        sin_azimuth.sort()
+        mult = len(sin_azimuth)/10
         # Get the x-positions (cosines) for the divisions in the gradient
         # Sort the array, and divide it into equal 10ths
         # The first nine are the divisions for the gradient
         deciles = []
-        for decile in range(1,mult*9):
-            deciles.append(cos_azimuth[decile])
+        for decile in range(1,10):
+            deciles.append(sin_azimuth[decile*mult])
         
+        colors = ["black", "purple", "blue", "green", "yellow", "green", "blue", "purple", "black"]
         template = JINJA_ENVIRONMENT.get_template('output.html')
-        self.response.write(template.render({deciles}))
+        self.response.write(template.render({'deciles': deciles, 'colors': colors}))
 
 class InputPage(webapp2.RequestHandler):
     def get(self):

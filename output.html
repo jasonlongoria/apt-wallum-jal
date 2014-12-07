@@ -9,6 +9,11 @@
         <canvas id="northCanvas" style="border:1px solid #d3d3d3;"></canvas>
         <canvas id="westCanvas" style="border:1px solid #d3d3d3;"></canvas>
         <canvas id="eastCanvas" style="border:1px solid #d3d3d3;"></canvas>
+            
+       {% for colorstop in deciles %}
+            <div>{{colorstop }}</div>
+       {% endfor %}
+        <input type="hidden">
         
         <style>
             body {
@@ -49,15 +54,9 @@
             var grd = southGradient.createLinearGradient(0, 0, wallLength, 0);
             southCanvas.width = wallLength;
             southCanvas.height = wallWidth;
-            grd.addColorStop(0.1, "black");
-            grd.addColorStop(0.2, "purple");
-            grd.addColorStop(0.3, "blue");
-            grd.addColorStop(0.4, "green");
-            grd.addColorStop(0.6, "yellow");
-            grd.addColorStop(0.7, "green");
-            grd.addColorStop(0.8, "blue");
-            grd.addColorStop(.9, "purple");
-            grd.addColorStop(1, "black");
+            {% for colorstop in deciles %}
+                grd.addColorStop({{colorstop }}, "black");
+            {% endfor %}
             southGradient.fillStyle = grd;
             southGradient.fillRect(0, 0, wallLength, wallWidth);
             
